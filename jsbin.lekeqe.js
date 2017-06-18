@@ -1,24 +1,23 @@
 // This will colour the body red/green/yellow to indicate test status.
-'use strict';
-
 tapBrowserColor();
 
 /**
  * ES5 Version of rest parameters
  * (the old syntax)
  */
+ 
+let sum;
 
-var sum = undefined;
-
-sum = function () {
-  var total = 0;
-
-  for (var i = 0; i < arguments.length; i++) {
+/*sum = function () {
+  let total = 0;
+  
+  for ( let i = 0; i < arguments.length; i++ ) {
     total = total + arguments[i];
   }
-
+  
   return total;
-};
+};*/
+
 
 /**
  * ES6 Version of Rest Parameters
@@ -26,14 +25,21 @@ sum = function () {
 
 // TODO: Uncomment the below and flesh it out using ES6 syntax
 //   and see if the test still passes.
-// sum = function ( ...values ) {};
+
+sum = ( ...values ) => {
+   return values.reduce(
+     (a,b) => { return a+b}
+   )
+ };
+
+
 
 /**
  * Tests of Rest Parameters
  */
-tape('rest parameters', function (t) {
-  var res = sum(1, 2, 3);
-  t.equal(res, 6, 'should total all numbers provided');
+tape( 'rest parameters', t => {
+  const res = sum( 1, 2, 3 );
+  t.equal( res, 6, 'should total all numbers provided' );
 
   t.end();
 });
@@ -43,11 +49,12 @@ tape('rest parameters', function (t) {
  * (the old syntax)
  */
 
-var sumArray = undefined;
+let sumArray;
 
-sumArray = function (array) {
-  return total = sum.apply(this, array);
+sumArray = function ( array ) {
+  return total = sum.apply( this, array );
 };
+
 
 /**
  * ES6 Version of Rest Parameters
@@ -56,11 +63,11 @@ sumArray = function (array) {
 
 // TODO: Uncomment the below and flesh it out using ES6 syntax
 //   and see if the test still passes.
-// sumArray = function ( values ) {};
+ sumArray = values => { sum.apply(this,array)};
 
-tape('spread', function (t) {
-  var res = sumArray([1, 2, 3]);
-  t.equal(res, 6, 'should total all numbers provided');
+tape( 'spread', t => {
+  const res = sumArray([ 1, 2, 3 ]);
+  t.equal( res, 6, 'should total all numbers provided' );
 
   t.end();
 });
